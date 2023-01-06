@@ -1,6 +1,6 @@
 #!/bin/bash
 username=$(sudo whoami) 
-process=$(lsof  -i -P | grep LISTEN | awk '{print $1, $2, $9}' | fzf --height 20 --prompt="Procesos" --layout reverse)
+process=$(lsof  -i -P | grep LISTEN | awk '{print $1, $2, $9}' | fzf --height 20 --prompt="Procesos" --layout reverse --header "COMMAND  PID PORT" )
 
 if [ ! -z "$process" ]; then
     name=$(echo $process | awk '{print $1}')
