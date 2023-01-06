@@ -1,0 +1,14 @@
+#!/bin/bash
+username=$(sudo whoami) 
+process=$(lsof  -i -P | grep LISTEN | awk '{print $1, $2, $9}' | fzf --height 20 --prompt="Procesos" --layout reverse)
+
+if [ ! -z "$process" ]; then
+    name=$(echo $process | awk '{print $1}')
+    pid=$(echo $process | awk '{print $2}')
+    if kill -0 $pid; then
+        echo "Finalizando proceso $pid"
+        kill -9 $pid
+    else
+        echo "El proceso PID: $pid no existe"
+    fi
+fi
